@@ -28,16 +28,15 @@ namespace AppCliente.ViewModels
 
         public MainPageViewModel()
         {
-            Pedido = new Pedido();
             _firebaseClient = new FirebaseClient(ENDERECO_FIREBASE);
+
+            Pedido = new Pedido();
 
             EnviarPedidoCommand = new Command(async () =>
             {
-                    var keyPedido = await _firebaseClient
-                             .Child("pedidos")
-                             .PostAsync<Pedido>(Pedido);
+                var retorno = string.Empty;
 
-                if (!string.IsNullOrEmpty(keyPedido.Key))
+                if (!string.IsNullOrEmpty(retorno))
                     await App.Current.MainPage.DisplayAlert("Xamarin Saturday", "Pedido enviado com sucesso!", "OK");
 
                 Pedido = new Pedido();
@@ -48,21 +47,7 @@ namespace AppCliente.ViewModels
 
         public void ObservablePedidos()
         {
-            _firebaseClient
-                .Child("pedidos")
-                .AsObservable<Pedido>()
-                .Subscribe(pedido =>
-                {
-                    if (pedido.EventType == FirebaseEventType.InsertOrUpdate)
-                    {
-                        if (pedido.Object.IdVendedor != 0)
-                            Device.BeginInvokeOnMainThread(async () => 
-                                await App.Current.MainPage.DisplayAlert("Xamarin Saturday", "O pedido: " + pedido.Object.Produto + " foi aceito pelo vendedor", "OK"));
-                    }
-                    else if (pedido.EventType == FirebaseEventType.Delete)
-                    {
-                    }
-                });
+            
         }
     }
 }
