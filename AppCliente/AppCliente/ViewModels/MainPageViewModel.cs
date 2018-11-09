@@ -55,11 +55,11 @@ namespace AppCliente.ViewModels
                 {
                     if (pedido.EventType == FirebaseEventType.InsertOrUpdate)
                     {
-                        if (pedido.Object.IdVendedor != 0)
+                        if (pedido.Object != null && pedido.Object.IdVendedor != 0)
                             Device.BeginInvokeOnMainThread(async () => 
                                 await App.Current.MainPage.DisplayAlert("Xamarin Saturday", "O pedido: " + pedido.Object.Produto + " foi aceito pelo vendedor", "OK"));
                     }
-                    else if (pedido.EventType == FirebaseEventType.Delete)
+                    else if (pedido.Object != null && pedido.EventType == FirebaseEventType.Delete)
                     {
                     }
                 });
