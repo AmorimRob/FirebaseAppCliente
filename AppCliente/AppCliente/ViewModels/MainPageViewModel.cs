@@ -13,7 +13,7 @@ namespace AppCliente.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly string ENDERECO_FIREBASE = "https://demoapp-2ea27.firebaseio.com/";
+        private readonly string ENDERECO_FIREBASE = "";
         private readonly FirebaseClient _firebaseClient;
 
         private Pedido _pedido;
