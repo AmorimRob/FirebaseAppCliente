@@ -4,8 +4,6 @@ using Firebase.Database.Query;
 using Firebase.Database.Streaming;
 using MvvmHelpers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows.Input;
 using Xamarin.Forms;
 
@@ -13,34 +11,34 @@ namespace AppCliente.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private readonly string ENDERECO_FIREBASE = "https://demoapp-2ea27.firebaseio.com/";
+        private readonly string FIREBASE_API_ADDRESS = "api_address";
         private readonly FirebaseClient _firebaseClient;
 
-        private Pedido _pedido;
+        private Order _order;
 
-        public Pedido Pedido
+        public Order Order
         {
-            get { return _pedido; }
-            set { _pedido = value; OnPropertyChanged(); }
+            get { return _order; }
+            set { _order = value; OnPropertyChanged(); }
         }
 
-        public ICommand EnviarPedidoCommand { get; set; }
+        public ICommand SendOrderCommand { get; set; }
 
         public MainPageViewModel()
         {
-            Pedido = new Pedido();
-            _firebaseClient = new FirebaseClient(ENDERECO_FIREBASE);
+            Order = new Order();
+            _firebaseClient = new FirebaseClient(FIREBASE_API_ADDRESS);
 
-            EnviarPedidoCommand = new Command(async () =>
+            SendOrderCommand = new Command(async () =>
             {
-                    var keyPedido = await _firebaseClient
-                             .Child("pedidos")
-                             .PostAsync<Pedido>(Pedido);
+                    var keyOrder = await _firebaseClient
+                             .Child("orders")
+                             .PostAsync<Order>(Order);
 
-                if (!string.IsNullOrEmpty(keyPedido.Key))
-                    await App.Current.MainPage.DisplayAlert("Xamarin Saturday", "Pedido enviado com sucesso!", "OK");
+                if (!string.IsNullOrEmpty(keyOrder.Key))
+                    await App.Current.MainPage.DisplayAlert("MonkeyFestLATAM", "Order sent success!", "OK");
 
-                Pedido = new Pedido();
+                Order = new Order();
             });
 
             ObservablePedidos();
@@ -49,17 +47,18 @@ namespace AppCliente.ViewModels
         public void ObservablePedidos()
         {
             _firebaseClient
-                .Child("pedidos")
-                .AsObservable<Pedido>()
-                .Subscribe(pedido =>
+                .Child("orders")
+                .AsObservable<Order>()
+                .Subscribe(order =>
                 {
-                    if (pedido.EventType == FirebaseEventType.InsertOrUpdate)
+                    if (order.EventType == FirebaseEventType.InsertOrUpdate)
                     {
-                        if (pedido.Object != null && pedido.Object.IdVendedor != 0)
+                        if (order.Object != null && order.Object.IdSeller != 0)
                             Device.BeginInvokeOnMainThread(async () => 
-                                await App.Current.MainPage.DisplayAlert("Xamarin Saturday", "O pedido: " + pedido.Object.Produto + " foi aceito pelo vendedor", "OK"));
+                                await App.Current.MainPage.DisplayAlert("MonkeyFestLATAM", "The order: " 
+                                + order.Object.ProductName + " was accepeted by seller", "OK"));
                     }
-                    else if (pedido.Object != null && pedido.EventType == FirebaseEventType.Delete)
+                    else if (order.Object != null && order.EventType == FirebaseEventType.Delete)
                     {
                     }
                 });

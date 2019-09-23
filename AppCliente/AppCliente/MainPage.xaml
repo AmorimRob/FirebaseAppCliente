@@ -1,28 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="AppCliente.MainPage"
-    xmlns="http://xamarin.com/schemas/2014/forms"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:AppCliente"
-    Title="Xamarin Saturday">
+<ContentPage x:Class="AppCliente.MainPage"
+             xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:AppCliente"
+             Title="Monkey Fest LATAM">
 
     <StackLayout Margin="10">
 
-        <Label Text="Cliente" />
-        <Entry Text="{Binding Pedido.Cliente}" />
+        <Label Text="Client" />
+        <Entry Text="{Binding Order.Client}" />
 
-        <Label Text="Produto" />
-        <Entry Text="{Binding Pedido.Produto}" />
+        <Label Text="Product Name" />
+        <Entry Text="{Binding Order.ProductName}" />
 
-        <Label Text="Preço" />
-        <Entry Text="{Binding Pedido.Preco}" />
+        <Label Text="Price" />
+        <Entry Text="{Binding Order.Price}" />
 
-        <Button
-            Command="{Binding EnviarPedidoCommand}"
-            HorizontalOptions="FillAndExpand"
-            Text="Enviar Pedido"
-            VerticalOptions="EndAndExpand" />
+        <Button Command="{Binding SendOrderCommand}"
+                Text="Send Order"
+                HorizontalOptions="FillAndExpand"
+                VerticalOptions="EndAndExpand" />
 
     </StackLayout>
-
 </ContentPage>

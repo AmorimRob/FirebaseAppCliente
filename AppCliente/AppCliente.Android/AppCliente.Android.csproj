@@ -15,7 +15,6 @@
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
     <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
     <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
-    <AndroidUseLatestPlatformSdk>false</AndroidUseLatestPlatformSdk>
     <TargetFrameworkVersion>v8.1</TargetFrameworkVersion>
     <AndroidHttpClientHandlerType>Xamarin.Android.Net.AndroidClientHandler</AndroidHttpClientHandlerType>
     <NuGetPackageImportStamp>
@@ -99,7 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AppCliente\AppCliente.csproj">
-      <Project>{E0B54A04-2416-4246-AEEA-40D3C6B675CA}</Project>
+      <Project>{CAC71FAF-BD47-4E0F-912E-460BC034E09D}</Project>
       <Name>AppCliente</Name>
     </ProjectReference>
   </ItemGroup>
