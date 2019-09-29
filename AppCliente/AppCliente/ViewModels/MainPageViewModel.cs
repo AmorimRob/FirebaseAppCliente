@@ -41,10 +41,10 @@ namespace AppCliente.ViewModels
                 Order = new Order();
             });
 
-            ObservablePedidos();
+            ObservableOrders();
         }
 
-        public void ObservablePedidos()
+        public void ObservableOrders()
         {
             _firebaseClient
                 .Child("orders")
